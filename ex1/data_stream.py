@@ -113,6 +113,7 @@ class DataStream:
                       f"{data}")
 
     def print_processors_stats(self) -> None:
+        print("== DataStream statistics ==")
         if not self._processors:
             print("No processor found, no data")
             return
@@ -128,7 +129,6 @@ if __name__ == "__main__":
 
     print("Initialize Data Stream...")
     data_stream = DataStream()
-    print("== DataStream statistics ==")
     data_stream.print_processors_stats()
 
     print("Registering Numeric Processor")
@@ -147,7 +147,6 @@ if __name__ == "__main__":
     ]
     print(f"Send first batch of data on stream: {stream}")
     data_stream.process_stream(stream)
-    print("== DataStream statistics ==")
     data_stream.print_processors_stats()
 
     print("Registering other data processors")
@@ -158,7 +157,6 @@ if __name__ == "__main__":
 
     print("Send the same batch again")
     data_stream.process_stream(stream)
-    print("== DataStream statistics ==")
     data_stream.print_processors_stats()
 
     print("Consume some elements from the data processors: "
@@ -169,5 +167,4 @@ if __name__ == "__main__":
         t_proc.output()
     for _ in range(1):
         d_proc.output()
-    print("== DataStream statistics ==")
     data_stream.print_processors_stats()
