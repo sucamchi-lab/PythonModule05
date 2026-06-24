@@ -7,7 +7,7 @@ class DataProcessor(ABC):
     def __init__(self) -> None:
         self._data: list[str] = []
         self._count = 0
-        self._total_processed = 0
+        self._total = 0
 
     @abstractmethod
     def validate(self, data: Any) -> bool:
@@ -39,10 +39,10 @@ class NumericProcessor(DataProcessor):
             raise ValueError("Improper numeric data")
         if isinstance(data, (int, float)):
             self._data.append(str(data))
-            self._total_processed += 1
+            self._total += 1
         elif isinstance(data, list):
             self._data.extend(str(x) for x in data)
-            self._total_processed += len(data)
+            self._total += len(data)
 
 
 class TextProcessor(DataProcessor):
@@ -59,10 +59,10 @@ class TextProcessor(DataProcessor):
             raise ValueError("Improper text data")
         if isinstance(data, list):
             self._data.extend(data)
-            self._total_processed += len(data)
+            self._total += len(data)
         else:
             self._data.append(data)
-            self._total_processed += 1
+            self._total += 1
 
 
 class LogProcessor(DataProcessor):
@@ -85,13 +85,13 @@ class LogProcessor(DataProcessor):
             level = data.get("log_level", "UNKNOWN")
             message = data.get("log_message", "")
             self._data.append(f"{level}: {message}")
-            self._total_processed += 1
+            self._total += 1
         elif isinstance(data, list):
             for x in data:
                 level = x.get("log_level", "UNKNOWN")
                 message = x.get("log_message", "")
                 self._data.append(f"{level}: {message}")
-            self._total_processed += len(data)
+            self._total += len(data)
 
 
 class DataStream:
@@ -120,7 +120,7 @@ class DataStream:
         for proc in self._processors:
             remaining = len(proc._data)
             print(f"{proc.__class__.__name__}: total "
-                  f"{proc._total_processed} items processed, remaining "
+                  f"{proc._total} items processed, remaining "
                   f"{remaining} on processor")
 
 
