@@ -99,13 +99,13 @@ class ExportPlugin(Protocol):
         pass
 
 
-class CSVExportPlugin:
+class CSVExportPlugin(ExportPlugin):
     def process_output(self, data: list[tuple[int, str]]) -> None:
         print("CSV Output:")
         print(",".join(value for _, value in data))
 
 
-class JSONExportPlugin:
+class JSONExportPlugin(ExportPlugin):
     def process_output(self, data: list[tuple[int, str]]) -> None:
         print("JSON Output:")
         json_items = [f'"item_{k}": "{v}"' for k, v in data]
