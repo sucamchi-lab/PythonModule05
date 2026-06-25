@@ -131,7 +131,7 @@ if __name__ == "__main__":
     data_stream = DataStream()
     data_stream.print_processors_stats()
 
-    print("Registering Numeric Processor")
+    print("\nRegistering Numeric Processor\n")
     n_proc = NumericProcessor()
     data_stream.register_processor(n_proc)
 
@@ -149,7 +149,7 @@ if __name__ == "__main__":
     data_stream.process_stream(stream)
     data_stream.print_processors_stats()
 
-    print("Registering other data processors")
+    print("\nRegistering other data processors")
     t_proc = TextProcessor()
     d_proc = LogProcessor()
     data_stream.register_processor(t_proc)
@@ -159,7 +159,7 @@ if __name__ == "__main__":
     data_stream.process_stream(stream)
     data_stream.print_processors_stats()
 
-    print("Consume some elements from the data processors: "
+    print("\nConsume some elements from the data processors: "
           "Numeric 3, Text 2, Log 1")
     for _ in range(3):
         n_proc.output()
