@@ -73,9 +73,9 @@ class LogProcessor(DataProcessor):
                        isinstance(v, str) for
                        k, v in data.items())
         if isinstance(data, list):
-            return all(isinstance(x, dict) and
+            return all(isinstance(item, dict) and
                        all(isinstance(k, str) and isinstance(v, str)
-                       for k, v in x.items()) for x in data)
+                       for k, v in item.items()) for item in data)
         return False
 
     def ingest(self, data: dict[str, str] | list[dict[str, str]]) -> None:
